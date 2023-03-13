@@ -11,5 +11,3 @@ module.exports = (sequelize, DataTypes) => {
         }
     })
 }
-
-console.log(role === sequelize.models.User);

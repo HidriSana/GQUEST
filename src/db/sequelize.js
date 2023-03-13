@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize')
-//const RoleModel = require('../models/role')
+const {initModels} = require('../models/init-models')
   
-const sequelize = new Sequelize('gquest', 'root', '', {
+const sequelize = new Sequelize('gquest_clean', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
   dialectOptions: {
@@ -10,4 +10,10 @@ const sequelize = new Sequelize('gquest', 'root', '', {
   logging: false
 })
   
+initModels(sequelize)
 
+const initDb = () => {
+  return sequelize.sync({force: true})
+}
+
+module.exports = {initDb}
