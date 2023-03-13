@@ -4,9 +4,6 @@ const {initModels} = require('../models/init-models')
 const sequelize = new Sequelize('gquest_clean', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
-  dialectOptions: {
-    timezone: 'Etc/GMT-2',
-  },
   logging: false
 })
   
