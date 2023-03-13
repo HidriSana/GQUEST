@@ -32,7 +32,50 @@ function initModels(sequelize) {
     foreignKey: {
       name: 'guild_id'
     }
-  });   
+  })
+
+  guilds.hasMany(quests, {
+    foreignKey: {
+      name: 'guild_id'
+    }
+    })
+
+    quests.belongsTo(guilds, {
+      foreignKey: {
+        name: 'guild_id'
+      }
+    })
+
+    users.hasMany(quests, {
+      foreignKey: {
+        name: 'user_id'
+      }
+    })
+
+    quests.belongsTo(users, {
+      foreignKey: {
+        name: 'user_id'
+      }
+    })
+
+    statuses.hasMany(quests, {
+      foreignKey: {
+        name: 'status_id'
+      }
+    })
+
+    users.hasOne(quests, {
+      foreignKey: {
+        name: 'creator_id'
+      }
+    })
+
+    points.hasMany(quests, {
+      foreignKey: {
+        name: 'points_id'
+      }
+    })
+
 
   return {
     difficulties,
