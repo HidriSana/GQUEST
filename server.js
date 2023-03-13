@@ -14,5 +14,6 @@ app
 
 sequelize.initDb();
 
+require('./src/controllers/userRoute')(app)
+
 app.listen(port, () => console.log(`Notre application est démarrée sur : http://localhost:${port}`))
-    

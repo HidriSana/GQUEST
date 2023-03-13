@@ -7,10 +7,11 @@ const sequelize = new Sequelize('gquest_clean', 'root', '', {
   logging: false
 })
   
-initModels(sequelize)
+models = initModels(sequelize)
+
 
 const initDb = () => {
   return sequelize.sync({force: true})
 }
 
-module.exports = {initDb}
+module.exports = {initDb, models}
