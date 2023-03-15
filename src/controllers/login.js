@@ -1,5 +1,7 @@
 const {user} = require ('../models/users')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+const privateKey = require('../auth/private_key')
 
 
 module.exports = (app) => {
@@ -20,6 +22,12 @@ module.exports = (app) => {
               return res.status(401).json({message})
             
             }
+            //sign du module jsonwebtoken 
+              const token= jwt.sign(
+                {userId: user.id},
+                privateKey,
+                {expiresIn: '24h'}
+              )
               const message = `Vous êtes maintenant connecté`;
               return res.json({ message, data: user, token })
             })
