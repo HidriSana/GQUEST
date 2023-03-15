@@ -5,7 +5,7 @@ const bodyParser = require('body-parser') // Node.js body parsing middleware
 const sequelize = require('./src/db/sequelize')
 
 const app = express()
-const port = 3000
+const port = 5000
 
 app
 .use(favicon(__dirname + '/favicon.ico'))
@@ -15,5 +15,7 @@ app
 sequelize.initDb();
 
 require('./src/controllers/userRoute')(app)
+require('./src/controllers/login')(app)
+
 
 app.listen(port, () => console.log(`Notre application est démarrée sur : http://localhost:${port}`))

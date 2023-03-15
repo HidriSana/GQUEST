@@ -8,69 +8,69 @@ const _statuses = require("./statuses");
 const _users = require("./users");
 
 function initModels(sequelize) {
-  const difficulties = _difficulties(sequelize, DataTypes);
-  const guilds = _guilds(sequelize, DataTypes);
+  const difficulty = _difficulties(sequelize, DataTypes);
+  const guild = _guilds(sequelize, DataTypes);
   const points = _points(sequelize, DataTypes);
-  const quests = _quests(sequelize, DataTypes);
-  const roles = _roles(sequelize, DataTypes);
-  const statuses = _statuses(sequelize, DataTypes);
-  const users = _users(sequelize, DataTypes);
+  const quest = _quests(sequelize, DataTypes);
+  const role = _roles(sequelize, DataTypes);
+  const status = _statuses(sequelize, DataTypes);
+  const user = _users(sequelize, DataTypes);
 
-  roles.hasOne(users, {
+  role.hasOne(user, {
     foreignKey: {
       name: 'role_id'
     }
   })
   
-  guilds.hasMany(users, {
+  guild.hasMany(user, {
     foreignKey: {
       name: 'guild_id'
     }
   })
   
-  users.belongsTo(guilds, {
+  user.belongsTo(guild, {
     foreignKey: {
       name: 'guild_id'
     }
   })
 
-  guilds.hasMany(quests, {
+  guild.hasMany(quest, {
     foreignKey: {
       name: 'guild_id'
     }
     })
 
-    quests.belongsTo(guilds, {
+    quest.belongsTo(guild, {
       foreignKey: {
         name: 'guild_id'
       }
     })
 
-    users.hasMany(quests, {
+    user.hasMany(quest, {
       foreignKey: {
         name: 'user_id'
       }
     })
 
-    quests.belongsTo(users, {
+    quest.belongsTo(user, {
       foreignKey: {
         name: 'user_id'
       }
     })
 
-    statuses.hasMany(quests, {
+    status.hasMany(quest, {
       foreignKey: {
         name: 'status_id'
       }
     })
 
-    users.hasOne(quests, {
+    user.hasOne(quest, {
       foreignKey: {
         name: 'creator_id'
       }
     })
 
-    points.hasMany(quests, {
+    points.hasMany(quest, {
       foreignKey: {
         name: 'points_id'
       }
@@ -78,13 +78,13 @@ function initModels(sequelize) {
 
 
   return {
-    difficulties,
-    guilds,
+    difficulty,
+    guild,
     points,
-    quests,
-    roles,
-    statuses,
-    users,
+    quest,
+    role,
+    status,
+    user,
   };
 }
 module.exports = initModels;
