@@ -2,10 +2,10 @@ const {user} = require ('../models/users')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const privateKey = require('../auth/private_key')
-
+const auth = require('../auth/auth') //Toute nouvelle route décalarée doit passer dans les méthodes de décalartion d'un point de terminaison
 
 module.exports = (app) => {
-  app.post('/login', (req, res) => {
+  app.post('/login', auth, (req, res) => {
   
     const authenticateUserWithemail = (user) => {
     //Login avec email, on compare donc l'email inséré pour se logger aux emails dans la base de donnée. findOne de Sequelize va trouver la première saisie correspondant aux conditions, ici une adresse mail valide

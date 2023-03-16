@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       //Validate est un validateur de Sequelize. Le format valide:{msg: ""} est simple et permet de poser des contraintes aux utilisateurs avec un message à l'appui
       validate:  {
-        isEmail: {msg: "Essayez un format valide: aaaa@email.com" }, 
+        isEmail: true, 
         notNull: {msg: "Ce champ ne peut être vide"}
       },
       //unique est aussi une contrainte de sequelize qui oblige l'unicité de l'adresse mail lors de l'authentitification  , dans ce cas précis car l'adresse mail servira de login

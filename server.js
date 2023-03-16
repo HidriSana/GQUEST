@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const morgan = require('morgan') //Middleware pour afficher le type de la requête entrante , son URL, ainsi que le code de statut
 const favicon = require('serve-favicon')  //Middleware pour mettre la favicon en cache  
 const bodyParser = require('body-parser') // Node.js body parsing middleware 
@@ -9,6 +10,7 @@ const port = 5000
 
 app
 .use(favicon(__dirname + '/favicon.ico'))
+.use(cors())
 .use(morgan('dev'))
 .use(bodyParser.json())
 
