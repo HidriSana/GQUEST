@@ -1,5 +1,5 @@
 const express = require('express')
-const cors = require('cors')
+const cors = require('cors') // installé après une erreur cross-origin , pour autoriser les requêtes inter-origine
 const morgan = require('morgan') //Middleware pour afficher le type de la requête entrante , son URL, ainsi que le code de statut
 const favicon = require('serve-favicon')  //Middleware pour mettre la favicon en cache  
 const bodyParser = require('body-parser') // Node.js body parsing middleware 
