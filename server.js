@@ -16,8 +16,13 @@ app
 
 sequelize.initDb();
 
+app.get('/', (req, res) => {
+    res.json('Hello, traveler ! 👋')
+  })
+
 require('./src/controllers/userRoute')(app)
 require('./src/controllers/login')(app)
+require('./src/controllers/guildRoute')(app)
 
 
 app.listen(port, () => console.log(`Notre application est démarrée sur : http://localhost:${port}`))

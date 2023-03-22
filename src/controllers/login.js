@@ -5,6 +5,7 @@ const privateKey = require('../auth/private_key')
 const auth = require('../auth/auth') //Toute nouvelle route décalarée doit passer dans les méthodes de décalartion d'un point de terminaison
 
 module.exports = (app) => {
+  //Express permettant de passer un middleware en deuxième argument , auth a pu être placé en argument ici
   app.post('/login', auth, (req, res) => {
   
     const authenticateUserWithemail = (user) => {
@@ -28,7 +29,8 @@ module.exports = (app) => {
                 privateKey,
                 {expiresIn: '24h'}
               )
-              const message = `Vous êtes maintenant connecté`;
+              const profile = user.firstname + ' ' + user.lastname
+              const message = `Bonjour ${profile} `;
               return res.json({ message, data: user, token })
             })
         })
