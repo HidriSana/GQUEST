@@ -30,7 +30,8 @@ module.exports = (app) => {
                 {expiresIn: '24h'}
               )
               const profile = user.firstname + ' ' + user.lastname
-              const message = `Bonjour ${profile} `;
+              const message = `Bonjour ${profile
+              } `;
               return res.json({ message, data: user, token })
             })
         })

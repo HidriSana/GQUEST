@@ -9,19 +9,28 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
+    
     lastname: {
       type: DataTypes.STRING(255),
-      allowNull: false
-    },
+      allowNull: false,
+       //Validate est un validateur de Sequelize. Le format validate :{msg: ""} est simple et permet de poser des contraintes aux utilisateurs avec un message à l'appui
+       validate: {
+        notNull: {msg: "Vous devez saisir un nom"},//N'autorise pas de champ vide
+        notEmpty: {msg: "Vous devez saisir un nom"} //N'autorise pas un format de "string" vide ou ne contenant que des espaces, par contre , autorise un espace entre deux caractères. TEST OK!
+      }
+      },
+    
     firstname: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {msg: "Vous devez saisir un prénom"}
+      }
     },
+    
     email: {
       type: DataTypes.STRING(255),
       allowNull: false,
-      
-      //Validate est un validateur de Sequelize. Le format validate :{msg: ""} est simple et permet de poser des contraintes aux utilisateurs avec un message à l'appui
       validate:  {
         isEmail: {msg : "Format de mail incorrect"}, 
         notNull: {msg: "Ce champ ne peut être vide"}
@@ -29,9 +38,18 @@ module.exports = function(sequelize, DataTypes) {
       //unique est aussi une contrainte de sequelize qui oblige l'unicité de l'adresse mail lors de l'authentitification  , dans ce cas précis car l'adresse mail servira de login
       unique: {msg: "Cette adresse mail est déjà utilisée"}
     },
+    
     password: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
+      //Les conditions de validation de ce mot de passe  est un choix personnel et indiqué par le message d'erreur ci-dessous. J'ai imposé le maximum de caractères pour ne pas me trouver avec des kilomètres de mot de passe.  Test : OK! 
+      validate:  {
+        validatePassword: function(password) {
+                      if(!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/.test(password))) {
+                          throw new Error('Le mot de passe doit contenur 8 caractères au minimum, 12 au maximum, incluant au moins une majuscule, un chiffre et un caractère spécial.');
+                      }
+                  }
+              },
     },
     
 },
