@@ -14,4 +14,4 @@ const initDb = () => {
   return sequelize.sync()
 }
 
-module.exports = {initDb, models}
+module.exports = {initDb, models,sequelize}

@@ -1,16 +1,15 @@
-const {user} = require ('../models/users')
+const { models } = require('../db/sequelize')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const privateKey = require('../auth/private_key')
-const auth = require('../auth/auth') //Toute nouvelle route décalarée doit passer dans les méthodes de décalartion d'un point de terminaison
 
 module.exports = (app) => {
-  //Express permettant de passer un middleware en deuxième argument , auth a pu être placé en argument ici
-  app.post('/login', auth, (req, res) => {
   
-    const authenticateUserWithemail = (user) => {
+  app.post('/login', (req, res) => {
+  
+   
     //Login avec email, on compare donc l'email inséré pour se logger aux emails dans la base de donnée. findOne de Sequelize va trouver la première saisie correspondant aux conditions, ici une adresse mail valide
-        user.findOne({ where: { email: req.body.email } }).then(user => {
+        models.user.findOne({ where: { email: req.body.email } }).then(user => {
           //si aucun email ne correspond, message d'erreur
           if(!user) {
             const message = `L'adresse mail saisie est incorrecte`
@@ -30,8 +29,7 @@ module.exports = (app) => {
                 {expiresIn: '24h'}
               )
               const profile = user.firstname + ' ' + user.lastname
-              const message = `Bonjour ${profile
-              } `;
+              const message = `Bonjour ${profile} `;
               return res.json({ message, data: user, token })
             })
         })
@@ -39,6 +37,6 @@ module.exports = (app) => {
           const message = `Vous n'avez pas pu être connecté. Réessayez dans quelques instants.`
           res.status(500).json({ message, data: error })
       })
-    }
-    })
+      
+        })
   }
