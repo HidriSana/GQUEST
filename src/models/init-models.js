@@ -3,7 +3,6 @@ const _difficulties = require("./difficulties");
 const _guilds = require("./guilds");
 const _points = require("./points");
 const _quests = require("./quests");
-const _roles = require("./roles");
 const _statuses = require("./statuses");
 const _users = require("./users");
 
@@ -12,15 +11,11 @@ function initModels(sequelize) {
   const guild = _guilds(sequelize, DataTypes);
   const points = _points(sequelize, DataTypes);
   const quest = _quests(sequelize, DataTypes);
-  const role = _roles(sequelize, DataTypes);
+
   const status = _statuses(sequelize, DataTypes);
   const user = _users(sequelize, DataTypes);
 
-  role.hasOne(user, {
-    foreignKey: {
-      name: 'role_id'
-    }
-  })
+  
   
   guild.hasMany(user, {
     foreignKey: {
@@ -82,7 +77,6 @@ function initModels(sequelize) {
     guild,
     points,
     quest,
-    role,
     status,
     user,
   };

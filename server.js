@@ -23,7 +23,7 @@ app.get('/createuser', (req, res) => {
     res.json('Inscription')
   })
 
-require('./src/controllers/userRoute')(app)
+require('./src/controllers/userController')(app)
 require('./src/controllers/login')(app)
 require('./src/controllers/guildRoute')(app)
 require('./src/routes/registerRoute')(app)

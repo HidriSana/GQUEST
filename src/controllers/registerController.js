@@ -13,6 +13,7 @@ async function newUserAndGuild(req,res) {
                     firstname: req.body.firstname,
                     email: req.body.email,
                     password: req.body.password,
+                    admin: true,
                     guild: {
                         guild: req.body.guild
                     } 

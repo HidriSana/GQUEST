@@ -4,7 +4,6 @@ const { ValidationError, UniqueConstraintError } = require('sequelize') // Ceux-
 
 
 module.exports = (app) => {
- 
     //Mise à jour du profil utilisateur  déjà existant
     app.put('/:id', (req, res) => {
       const id = req.params.id
