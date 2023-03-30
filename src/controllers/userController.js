@@ -1,9 +1,8 @@
 const { models } = require('../db/sequelize')
-const {sequelize } = require ('../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize') // Ceux-ci sont des modules de sequelize pour récupérer les messages d'erreur des validateurs ici
 
 
-module.exports = (app) => {
+const updateUser = (req,res) => {
     //Mise à jour du profil utilisateur  déjà existant
     app.put('/:id', (req, res) => {
       const id = req.params.id
@@ -31,3 +30,5 @@ module.exports = (app) => {
     }
     )
 }
+
+module.exports = {updateUser}

@@ -23,18 +23,22 @@ module.exports = (app) => {
             
             }
             //sign du module jsonwebtoken 
-              const token= jwt.sign(
-                {userId: user.id},
+              const accessToken= jwt.sign(
+                {
+                  userId: user.id,
+                  admin: user.admin
+                },
                 privateKey,
                 {expiresIn: '24h'}
-              )
+              );
+
               const profile = user.firstname + ' ' + user.lastname
               const message = `Bonjour ${profile} `;
-              return res.json({ message, data: user, token })
+              return res.json({ message, data: user, accessToken})
             })
         })
         .catch(error => {
-          const message = `Vous n'avez pas pu être connecté. Réessayez dans quelques instants.`
+          const message = `Vous n'avez pas pu être connecté.`
           res.status(500).json({ message, data: error })
       })
       

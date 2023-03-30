@@ -1,1 +1,1 @@
-module.exports = 'CUSTOM_PRIVATE_KEY' //Juste une chaîne de caractère pour exporter la clé secrête
+module.exports = 'fdshygjhdsf87@fdsujhdjk9&hdgqh896&hpmanst@#dshgv8596' //Juste une chaîne de caractère pour exporter la clé secrête
