@@ -28,6 +28,7 @@ require('./src/controllers/login')(app)
 require('./src/controllers/guildRoute')(app)
 require('./src/routes/registerRoute')(app)
 require('./src/routes/authRoute')(app)
+require('./src/routes/demandRoute')(app)
 
 
 app.listen(port, () => console.log(`Notre application est démarrée sur : http://localhost:${port}`))

@@ -5,13 +5,14 @@ const _points = require("./points");
 const _quests = require("./quests");
 const _statuses = require("./statuses");
 const _users = require("./users");
+const _demands = require("./demands")
 
 function initModels(sequelize) {
   const difficulty = _difficulties(sequelize, DataTypes);
   const guild = _guilds(sequelize, DataTypes);
   const points = _points(sequelize, DataTypes);
   const quest = _quests(sequelize, DataTypes);
-
+  const demand = _demands(sequelize, DataTypes);
   const status = _statuses(sequelize, DataTypes);
   const user = _users(sequelize, DataTypes);
 
@@ -71,6 +72,20 @@ function initModels(sequelize) {
       }
     })
 
+    demand.belongsTo(user,{
+      foreignKey: {
+        name: 'user_id'
+      }
+    })
+
+    demand.belongsTo(guild,{
+      foreignKey: {
+        name: 'guild_id'
+      }
+    }
+    )
+
+    
 
   return {
     difficulty,
@@ -79,6 +94,7 @@ function initModels(sequelize) {
     quest,
     status,
     user,
+    demand,
   };
 }
 module.exports = initModels;

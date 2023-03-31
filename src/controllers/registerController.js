@@ -1,6 +1,6 @@
 const { models } = require('../db/sequelize')
-const {sequelize } = require ('../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize') // Ceux-ci sont des modules de sequelize pour récupérer les messages d'erreur des validateurs ici
+
 
 //La transaction dan sequelize se charge de la création du user et de la guilde en même temps. Dans la managed version, elle s'occupe systématiquement du rollback si l'une des étapes échoue
 async function newUserAndGuild(req,res) {
@@ -47,6 +47,7 @@ async function newUserNoGuild (req,res) {
           const message = `Le compte utilisateur a bien été crée.`
           res.json({ message, data: user})
         })
+        
         //Gestion des erreurs
         .catch(error => {
           if (error instanceof ValidationError) {
@@ -57,8 +58,8 @@ async function newUserNoGuild (req,res) {
           }
           const message = "L'utilisateur n'a pas pu être créé. Réessayez dans quelques instants."
           res.status(500).json({message, data: error})
-    })
-    }
-  
+    }) 
+}
+
 module.exports = {newUserAndGuild, newUserNoGuild}
 
