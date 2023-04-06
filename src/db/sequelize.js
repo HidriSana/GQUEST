@@ -11,7 +11,7 @@ models = initModels(sequelize)
 
 
 const initDb = () => {
-  return sequelize.sync()
+  return sequelize.sync({alter : true})
 }
 
 module.exports = {initDb, models, sequelize}

@@ -51,8 +51,9 @@ module.exports = function(sequelize, DataTypes) {
                   }
               },
     },
+
     admin: {
-      type: Sequelize.BOOLEAN,
+      type: DataTypes.BOOLEAN,
       defaultValue: false,
     }
     

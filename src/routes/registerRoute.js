@@ -5,7 +5,7 @@ module.exports = (app) =>{
         return newUserAndGuild(req,res)
      });
      
-     app.post('/create-user-no-guild', (req, res) => {
+     app.post('/create-user-not-guild', (req, res) => {
       return newUserNoGuild(req,res)
    });
 }
