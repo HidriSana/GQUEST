@@ -25,11 +25,11 @@ app.get('/createuser', (req, res) => {
 
 require('./src/routes/userRoute')(app)
 require('./src/controllers/login')(app)
-require('./src/controllers/guildRoute')(app)
+require('./src/routes/guildRoute')(app)
 require('./src/routes/registerRoute')(app)
 require('./src/routes/authRoute')(app)
 require('./src/routes/demandRoute')(app)
-require('./src/routes/findGuildRoute')(app)
+
 
 
 
