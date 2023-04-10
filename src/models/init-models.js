@@ -77,7 +77,7 @@ function initModels(sequelize) {
         name: 'user_id'
       }
     })
-
+  
     demand.belongsTo(guild,{
       foreignKey: {
         name: 'guild_id'

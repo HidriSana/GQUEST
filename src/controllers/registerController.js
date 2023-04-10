@@ -27,7 +27,8 @@ async function newUserAndGuild(req,res) {
         const message = `Le compte utilisateur a bien été créé. Vous serez par défaut  l'admin de la guilde, mais ceci pourra être changé dans les paramètres plus tard`;
         res.json({ message})
         console.log('success');
-      } catch(error) {
+      }
+      catch(error) {
         console.log(error)
         if (error instanceof ValidationError) {
             return res.status(400).json({message: error.message, data: error})
@@ -41,15 +42,35 @@ async function newUserAndGuild(req,res) {
     
 }
 
-async function newUserNoGuild (req,res) {
-    models.user.create(req.body)
-        .then(user => {
-          const message = `Le compte utilisateur a bien été crée.`
-          res.json({ message, data: user})
-        })
+async function newUserNotGuild (req,res) {
+    try {
+      await models.demand.create (
+              
+          {     
+                  status: "Pending",
+                   user: {
+                    lastname: req.body.lastname,
+                    firstname: req.body.firstname,
+                    email: req.body.email,
+                    password: req.body.password,
+                    admin: false,
+                  },
+                    guild_id :  req.body.foundGuild
+      
+              
+          },
+          {
+              include: [models.user] 
+          }
+          )
+
+      const message = `Le compte utilisateur a bien été créé. Votre demande d'adhésion a été envoyée à l'administrateur de la guilde`;
+      res.json({ message})
+      console.log('success');
+    }
         
         //Gestion des erreurs
-        .catch(error => {
+    catch(error) {
           if (error instanceof ValidationError) {
             return res.status(400).json({message: error.message, data: error})
           }
@@ -58,8 +79,9 @@ async function newUserNoGuild (req,res) {
           }
           const message = "L'utilisateur n'a pas pu être créé. Réessayez dans quelques instants."
           res.status(500).json({message, data: error})
-    }) 
-}
+        }
+    } 
 
-module.exports = {newUserAndGuild, newUserNoGuild}
+
+module.exports = {newUserAndGuild, newUserNotGuild}
 
