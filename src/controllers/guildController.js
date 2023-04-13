@@ -14,7 +14,7 @@ const { models } = require('../db/sequelize')
 
         )
     }
-    function findGuild(req,res) {
+    const findGuild=(req,res) => {
        models.guild.findOne({where: {guild: req.params.guild}})
        .then(guild =>{
         res.status(200).json(guild)
@@ -24,6 +24,9 @@ const { models } = require('../db/sequelize')
        })
     }
   
-
+    async function  findGuildByUser(userId) {
+      const user = await models.user.findByPk(userId);
+      return user.guild_id;
+    }
  
-module.exports = {createGuild,findGuild}
+module.exports = {createGuild,findGuild, findGuildByUser}
