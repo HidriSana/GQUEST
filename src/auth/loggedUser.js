@@ -19,13 +19,14 @@ function loggedUser(req){
 }
 
 async function findGuildByLoggedUser(req) {
-    userId = loggedUser(req)
-    
+    userId = loggedUser(req)    
+    let guildId= null
     await findGuildByUser(userId)
     .then(guild => {
-            return guild
+            guildId = guild
         }
     )
+    return guildId
    
 }
 module.exports = {loggedUser,findGuildByLoggedUser}

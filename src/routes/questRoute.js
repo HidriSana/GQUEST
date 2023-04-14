@@ -1,4 +1,4 @@
-const {createQuest, updateQuest, findQuest, findAllQuests} = require('../controllers/questController')
+const {createQuest, updateQuest, findQuest, findAllQuests, deleteQuest} = require('../controllers/questController')
 const {verifyJWT} = require('../auth/auth')
 const {verifyRole} = require ('../auth/verifyRole')
 
@@ -16,14 +16,18 @@ module.exports = (app) => {
       return updateQuest(req,res)
    });
 
+   app.delete('/delete-quest/:id',[verifyJWT,verifyRole] , (req, res) => {
+        
+      return deleteQuest(req,res)
+   });
 
    // La simple récupération de la quête  n'exige pas d'être admin, on ne vérifiera que la détention d'un jeton valide
-   app.get('/find-quest/:id', (req, res) => {
+   app.get('/find-quest/:id', [verifyJWT], (req, res) => {
         
       return findQuest(req,res)
    });
 
-   app.get('/quests', (req, res) => {
+   app.get('/quests',[verifyJWT], (req, res) => {
         
       return findAllQuests(req,res)
    });
