@@ -55,7 +55,6 @@ async function newUserNotGuild (req,res) {
                   },
                     guild_id :  req.body.foundGuild
       
-              
           },
           {
               include: [models.user] 
