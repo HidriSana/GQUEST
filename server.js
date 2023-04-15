@@ -24,7 +24,7 @@ app.get('/createuser', (req, res) => {
   })
 
 require('./src/routes/userRoute')(app)
-require('./src/controllers/login')(app)
+require('./src/routes/loginRoute')(app)
 require('./src/routes/guildRoute')(app)
 require('./src/routes/registerRoute')(app)
 require('./src/routes/authRoute')(app)
