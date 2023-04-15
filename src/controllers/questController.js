@@ -69,21 +69,15 @@ async function findAllQuests(req,res) {
 }
 //La suppression d'une quête : ATTENTION! Suppression de la BDD
 async function deleteQuest(req,res) {
-  models.quest.findByPk(req.params.id)
-  .then(quest => {
-    if(quest === null) {
-      const message = `Cette quête n'existe pas. Réessayez avec un autre identifiant.`
-      return res.status(404).json({ message })
-    }
-  })
   
-  return models.quest.destroy({ where: { id: models.quest.id } })
+  models.quest.destroy({ where: { id: req.params.id } })
     .then(_ => {
-          const message = `La quête avec l'identifiant n°${quest.id} a bien été supprimée.`
-          res.json({message, data: quest})
+          const message = `La quête avec l'identifiant n°${req.params.id} a bien été supprimée.`
+          res.json({message})
         })
       
     .catch (error => {
+      console.log(error)
       res.status(500).json(error)
 })
 }
