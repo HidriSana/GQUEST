@@ -54,12 +54,7 @@ function initModels(sequelize) {
       }
     })
 
-    status.hasMany(quest, {
-      foreignKey: {
-        name: 'status_id'
-      }
-    })
-
+  
     user.hasOne(quest, {
       foreignKey: {
         name: 'creator_id'

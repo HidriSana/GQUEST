@@ -1,4 +1,4 @@
-const {createQuest, updateQuest, findQuest, findAllQuests, deleteQuest} = require('../controllers/questController')
+const {createQuest, updateQuest, findQuest, findAllQuests, deleteQuest, beginQuest, finishQuest} = require('../controllers/questController')
 const {verifyJWT} = require('../auth/auth')
 const {verifyRole} = require ('../auth/verifyRole')
 
@@ -16,6 +16,7 @@ module.exports = (app) => {
       return updateQuest(req,res)
    });
 
+   
    app.delete('/delete-quest/:id',[verifyJWT,verifyRole] , (req, res) => {
         
       return deleteQuest(req,res)
@@ -30,5 +31,14 @@ module.exports = (app) => {
    app.get('/quests',[verifyJWT], (req, res) => {
         
       return findAllQuests(req,res)
+   });
+
+   app.put('/begin-quest/:id',[verifyJWT], (req, res) => {
+        
+      return beginQuest(req,res)
+   });
+   app.put('/finish-quest/:id',[verifyJWT], (req, res) => {
+        
+      return finishQuest(req,res)
    });
 }

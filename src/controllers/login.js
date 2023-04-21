@@ -10,7 +10,8 @@ async function login(req,res){
         await models.user.findOne({ where: { email: req.body.email } })
         .then(user => {
           //si aucun email ne correspond, message d'erreur
-          if(!user) {
+          if(!user) 
+           {
             const message = `L'adresse mail saisie est incorrecte`
             return res.status(404).json({ message })
           }
@@ -25,6 +26,7 @@ async function login(req,res){
               const accessToken= jwt.sign(
                 {
                   userId: user.id,
+                  firstname: user.firstname,
                   admin: user.admin
                 },
                 privateKey,
@@ -33,7 +35,7 @@ async function login(req,res){
 
               const profile = user.firstname + ' ' + user.lastname
               const message = `Bonjour ${profile} `;
-              return res.json({ message, access: accessToken})
+              return res.json({ message, access: accessToken, admin: user.admin})
             })
         })
         .catch(error => {

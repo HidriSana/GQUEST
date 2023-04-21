@@ -4,6 +4,7 @@ const {loggedUser,findGuildByLoggedUser} = require ('../auth/loggedUser')
 //Création de la quête
  async function createQuest(req, res){
     req.body.creator_id = loggedUser(req);
+    req.body.status = "en_attente";
     await findGuildByLoggedUser(req).then(guild => req.body.guild_id = guild)
     models.quest.create(req.body)
       .then(quest => {
@@ -37,6 +38,66 @@ const {loggedUser,findGuildByLoggedUser} = require ('../auth/loggedUser')
       }
       )
   }
+//Begin quest :  Ceci n'est pas un update classique via formulaire . Il va modifier le statut de la quête, lui donner un userID , une date d'affectation et une date d'expiration
+async function beginQuest(req, res) {
+  
+  req.body.status = "en_cours";
+  req.body.affectation_date = Date.now();
+  req.body.user_id = loggedUser(req);
+  req.body.expiration = req.body.affectation_date + (24 * 3600 * 1000);
+  models.quest.update(req.body, {where: {id: req.params.id}})
+  .then(_ => {
+    return models.quest.findByPk(req.params.id).then(quest => {
+    if(quest === null) {
+        const message = `Cette quête n'existe pas. Réessayez avec un autre identifiant.`
+      return res.status(404).json({ message })
+      }
+      
+      const message = `La quête n° ${req.params.id} a bien été modifiée.`
+      console.log(quest)
+      res.json({message, data: quest})
+    })
+  })
+  
+  .catch (error => {
+      console.log(error)
+      res.status(500).json(error)
+    }
+    )
+}
+
+//Finish quest :  Même principe que le beginQuest, mais va uniquement update la statut de la quête en terminée
+async function finishQuest(req, res) {
+  
+  req.body.status = "terminée";
+  if (req.body.user_id === !loggedUser(req)) {
+    console.log(loggedUser(req))
+    const message = `Cette quête ne vous appartient pas.`
+    return res.status(401).json({ message })
+  } else {
+  models.quest.update(req.body, {where: {id: req.params.id}})
+  .then(_ => {
+    return models.quest.findByPk(req.params.id).then(quest => {
+    if(quest === null) {
+        const message = `Cette quête n'existe pas. Réessayez avec un autre identifiant.`
+      return res.status(404).json({ message })
+      }
+   
+      
+      const message = `La quête n° ${req.params.id} a bien été modifiée.`
+      res.json({message, data: quest})
+  })
+  })
+  
+  .catch (error => {
+      console.log(error)
+      res.status(500).json(error)
+    }
+    )
+}}
+
+
+
 //  Trouver la quête
 async function findQuest(req, res){
   models.quest.findByPk(req.params.id)
@@ -82,4 +143,4 @@ async function deleteQuest(req,res) {
 })
 }
 
-  module.exports = {createQuest, updateQuest, findQuest, findAllQuests, deleteQuest}
+  module.exports = {createQuest, updateQuest, findQuest, findAllQuests, deleteQuest, beginQuest, finishQuest}

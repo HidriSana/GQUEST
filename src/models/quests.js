@@ -16,11 +16,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     expiration: {
-      type: 'TIMESTAMP',
+      type: DataTypes.DATE,
       allowNull: false,
     },
     affectation_date: {
       type: DataTypes.DATE,
+      allowNull: false
+    },
+    status: {
+      type: DataTypes.STRING(255),
       allowNull: false
     }
   })
