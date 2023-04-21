@@ -17,15 +17,19 @@ module.exports = function(sequelize, DataTypes) {
     },
     expiration: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     affectation_date: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true,
     },
     status: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
+    },
+    points: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     }
   })
 };

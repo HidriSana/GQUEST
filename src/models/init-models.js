@@ -61,12 +61,7 @@ function initModels(sequelize) {
       }
     })
 
-    points.hasMany(quest, {
-      foreignKey: {
-        name: 'points_id'
-      }
-    })
-
+   
     demand.belongsTo(user,{
       foreignKey: {
         name: 'user_id'

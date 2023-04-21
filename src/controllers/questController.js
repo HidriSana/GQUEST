@@ -115,7 +115,7 @@ async function findQuest(req, res){
   }
   )
 }
-
+//Trouver toutes les quêtes 
 async function findAllQuests(req,res) {
   models.quest.findAll()
   .then(quests => {
