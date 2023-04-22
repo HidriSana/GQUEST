@@ -27,7 +27,8 @@ async function login(req,res){
                 {
                   userId: user.id,
                   firstname: user.firstname,
-                  admin: user.admin
+                  admin: user.admin,
+                  guild : user.guild_id
                 },
                 privateKey,
                 {expiresIn: '24h'}
@@ -35,7 +36,7 @@ async function login(req,res){
 
               const profile = user.firstname + ' ' + user.lastname
               const message = `Bonjour ${profile} `;
-              return res.json({ message, access: accessToken, admin: user.admin})
+              return res.json({ message, access: accessToken, admin: user.admin, guild : user.guild_id})
             })
         })
         .catch(error => {

@@ -116,8 +116,12 @@ async function findQuest(req, res){
   )
 }
 //Trouver toutes les quêtes 
-async function findAllQuests(req,res) {
-  models.quest.findAll()
+async function findAllQuestsByGuild(req,res) {
+  models.quest.findAll({where: {guild_id: req.params.guild_id}
+    ,include: {
+      model : models.user,
+      attributes: ['firstname','lastname']
+    }})
   .then(quests => {
     
     const message = 'Toutes les quêtes ont été récupérées avec succès'
@@ -143,4 +147,4 @@ async function deleteQuest(req,res) {
 })
 }
 
-  module.exports = {createQuest, updateQuest, findQuest, findAllQuests, deleteQuest, beginQuest, finishQuest}
+  module.exports = {createQuest, updateQuest, findQuest, findAllQuestsByGuild, deleteQuest, beginQuest, finishQuest}

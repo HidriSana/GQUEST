@@ -31,4 +31,25 @@ const updateUser = (req,res) => {
     )
 }
 
-module.exports = {updateUser}
+const findUserDetailsById = (req,res) => {
+    models.user.findByPk(req.params.id)
+    .then(user => {
+      if (user) {
+        return res.status(200).json({
+          firstname : user.firstname,
+          lastname : user.lastname
+        })
+      } else {
+        return res.status(404).json({
+          message : "Utilisateur non existant"
+        })
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        error : error
+      })
+    })
+}
+
+module.exports = {updateUser, findUserDetailsById}

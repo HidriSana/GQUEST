@@ -1,4 +1,4 @@
-const {createQuest, updateQuest, findQuest, findAllQuests, deleteQuest, beginQuest, finishQuest} = require('../controllers/questController')
+const {createQuest, updateQuest, findQuest, findAllQuestsByGuild, deleteQuest, beginQuest, finishQuest} = require('../controllers/questController')
 const {verifyJWT} = require('../auth/auth')
 const {verifyRole} = require ('../auth/verifyRole')
 
@@ -28,9 +28,9 @@ module.exports = (app) => {
       return findQuest(req,res)
    });
 
-   app.get('/quests',[verifyJWT], (req, res) => {
+   app.get('/quests/:guild_id',[verifyJWT], (req, res) => {
         
-      return findAllQuests(req,res)
+      return findAllQuestsByGuild(req,res)
    });
 
    app.put('/begin-quest/:id',[verifyJWT], (req, res) => {

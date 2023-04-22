@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    //Va être   un statuit , en attente, validé, ou refusé. Cela dépendra
+    //Va être   un statut , en attente, validé, ou refusé. 
     status: {
       type: DataTypes.STRING(255),
       allowNull: false
