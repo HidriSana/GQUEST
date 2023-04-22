@@ -36,6 +36,21 @@ const acceptedRequest = (req,res) => {
     })
   }}
   )}
+
+  const refusedRequest = (req, res) => {
+    req.body.status = "Declined";
+    models.demand.update(req.body, {where: {id: req.body.id}})
+    .then(demand => {
+      const message = `Votre demande d'adhésion a été refusée.`;
+        res.json({ message, data: demand.status})
+    })
+    
+    .catch (error => {
+        console.log(error)
+        res.status(500).json(error)
+      }
+      )
+  }
      
   
 
@@ -57,4 +72,4 @@ const  findDemandsByGuild = (req,res) => {
 })
 }
  
-module.exports = {pendingRequest, acceptedRequest, findDemandsByGuild}
+module.exports = {pendingRequest, acceptedRequest, findDemandsByGuild, refusedRequest}
